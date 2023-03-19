@@ -2,28 +2,33 @@
 
 def parallel_processing(n, m, data):
     output = []
-    # TODO: write the function for simulating parallel tasks, 
-    # create the output pairs
+
+    assigned_jobs = [(i, 0) for i in range(n)]
+
+    
+    for i in range(m):
+        
+        thread_index, start_time = min(assigned_jobs, key=lambda x: x[1])
+
+
+        output.append((thread_index, start_time))
+        assigned_jobs[thread_index] = (thread_index, start_time + data[i])
 
     return output
 
+
 def main():
-    # TODO: create input from keyboard
-    # input consists of two lines
-    # first line - n and m
-    # n - thread count 
-    # m - job count
-    n = 0
-    m = 0
-
-    # second line - data 
-    # data - contains m integers t(i) - the times in seconds it takes any thread to process i-th job
-    data = []
-
-    # TODO: create the function
-    result = parallel_processing(n,m,data)
     
-    # TODO: print out the results, each pair in it's own line
+    n, m = map(int, input().split())
+    data = list(map(int, input().split()))
+
+    
+    result = parallel_processing(n, m, data)
+
+    
+    for thread_index, start_time in result:
+        print(thread_index, start_time)
+
 
 
 
